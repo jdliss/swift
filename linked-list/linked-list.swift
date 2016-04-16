@@ -40,6 +40,17 @@ class LinkedList {
             return tail(currentNode.next!)
         }
     }
+    
+//    func printList(currentNode: Node?) {
+//        if currentNode == nil && self.head != nil {
+//            let currentNode = self.head
+//            printList(currentNode!.next)
+//        } else if currentNode!.data == nil || currentNode!.data! == "" {
+//            print("List empty!")
+//        } else {
+//            printList(self.head!.next)
+//        }
+//    }
 
     func printList() {
         if self.head == nil || self.head!.data! == "" {
@@ -55,10 +66,28 @@ class LinkedList {
             printHelper(currentNode.next!)
         }
     }
+    
+    func find(data: String) -> Node {
+        if self.head!.data! == data {
+            return self.head!
+        } else {
+            return findHelper(self.head!.next!, data: data)
+        }
+    }
+    
+    func findHelper(currentNode: Node, data: String) -> Node{
+        if currentNode.data! == data {
+            return currentNode
+        } else {
+            return findHelper(currentNode.next!, data: data)
+    
+        }
+    }
 }
 
 
 var list = LinkedList()
+list.printList()
 
 list.append("yoooo")
 list.append("heyy")
@@ -66,4 +95,8 @@ list.append("lets gooo")
 list.append("alriiiight")
 
 list.printList()
-print(list.tail(list.head!).data)
+print(list.tail(list.head!).data!)
+
+var node = list.find("lets gooo")
+print(node.data!)
+
