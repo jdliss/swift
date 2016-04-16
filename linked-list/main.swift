@@ -42,6 +42,14 @@ class LinkedList {
         }
     }
 
+    func tail(currentNode: Node) -> Node {
+        if currentNode.next == nil {
+            return currentNode
+        } else {
+            return tail(currentNode.next!)
+        }
+    }
+
     func printList() {
         if self.head == nil || self.head!.data! == "" {
             print("Empty List")
@@ -67,3 +75,4 @@ list.append("lets gooo")
 list.append("alriiiight")
 
 list.printList()
+print(list.tail(list.head!).data)
