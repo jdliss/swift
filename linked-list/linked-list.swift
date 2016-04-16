@@ -27,18 +27,9 @@ class LinkedList {
     func append(data: String) {
         if self.head == nil {
             self.head = Node(data: data)
-        } else if self.head!.next == nil {
-            self.head!.next = Node(data: data)
         } else {
-            appendHelper(self.head!.next!, data: data)
-        }
-    }
-
-    func appendHelper(currentNode: Node, data: String) {
-        if currentNode.next == nil {
-            currentNode.next = Node(data: data)
-        } else {
-            appendHelper(currentNode.next!, data: data)
+          let currentNode = self.head!
+          tail(currentNode).next = Node(data: data)
         }
     }
 
