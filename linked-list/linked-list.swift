@@ -28,7 +28,7 @@ class LinkedList {
         if self.head == nil {
             self.head = Node(data: data)
         } else {
-          let currentNode = self.head!
+          let currentNode = self.head
           tail(currentNode).next = Node(data: data)
         }
     }
@@ -37,12 +37,12 @@ class LinkedList {
         if currentNode.next == nil {
             return currentNode
         } else {
-            return tail(currentNode.next!)
+            return tail(currentNode.next)
         }
     }
 
     func printList() {
-        if self.head == nil || self.head.data! == "" {
+        if self.head == nil || self.head.data == "" {
             print("Empty List")
         } else {
             recursivePrint(self.head)
@@ -58,7 +58,7 @@ class LinkedList {
     
     func find(data: String) -> Node! {
         if self.head.data == data {
-            return self.head!
+            return self.head
         } else {
             return recursiveFind(self.head.next, data: data)
         }
@@ -161,18 +161,18 @@ if noParentNode != nil {
 }
 
 print("\nfinding parent of 'dooooope'")
-let parentNode: Node? = list.findParent(list.head!, findNode: list.find("dooooope"))
+let parentNode: Node! = list.findParent(list.head, findNode: list.find("dooooope"))
 if parentNode != nil {
-    print(parentNode!.data!)
+    print(parentNode.data)
 } else {
     print("No parent")
 }
 
 print("\nprinting popped node (should be 'alriiiight')")
-print(list.pop()!.data!)
+print(list.pop().data)
 
 print("\nprinting popped node (should be 'dooooope')")
-print(list.pop()!.data!)
+print(list.pop().data)
 
 var newList = LinkedList()
 
