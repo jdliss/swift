@@ -101,11 +101,21 @@ class LinkedList {
         }
     }
     
-    func recursiveFindParent(startNode: Node, findNode: Node) -> Node {
-        if startNode.next! === findNode {
-            return startNode
-        } else {//if startNode.next != nil {
-            return recursiveFindParent(startNode.next!, findNode: findNode)
+    func recursiveFindParent(currentNode: Node, findNode: Node) -> Node {
+        if currentNode.next! === findNode {
+            return currentNode
+        } else {
+            return recursiveFindParent(currentNode.next!, findNode: findNode)
+        }
+    }
+    
+    func pop() -> Node? {
+        if self.head == nil {
+            return nil
+        } else {
+            let tail = self.tail(self.head!)
+            self.findParent(self.head!, findNode: tail).next = nil
+            return tail
         }
     }
 }
@@ -116,7 +126,7 @@ print("Printing empty list")
 list.printList()
 
 list.append("yoooo")
-list.append("heyy")
+list.append("dooooope")
 list.append("lets gooo")
 list.append("alriiiight")
 print("\nprinting list after appending 4 nodes")
@@ -141,10 +151,42 @@ if noParentNode != nil {
     print("No parent")
 }
 
-print("\nfinding parent of 'heyy'")
-let parentNode: Node? = list.findParent(list.head!, findNode: list.find("heyy"))
+print("\nfinding parent of 'dooooope'")
+let parentNode: Node? = list.findParent(list.head!, findNode: list.find("dooooope"))
 if parentNode != nil {
     print(parentNode!.data!)
 } else {
     print("No parent")
 }
+
+print("\nprinting popped node (should be 'alriiiight')")
+print(list.pop()!.data!)
+
+print("\nprinting popped node (should be 'dooooope')")
+print(list.pop()!.data!)
+
+var newList = LinkedList()
+
+print("\nattempting to pop from empty list")
+let emptyPop = newList.pop()
+
+if emptyPop == nil {
+    print("Nothing popped")
+} else {
+    print("something went wrong")
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
