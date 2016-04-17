@@ -175,18 +175,3 @@ if emptyPop == nil {
 } else {
     print("something went wrong")
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
