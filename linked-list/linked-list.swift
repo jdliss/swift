@@ -40,30 +40,19 @@ class LinkedList {
             return tail(currentNode.next!)
         }
     }
-    
-//    func printList(currentNode: Node?) {
-//        if currentNode == nil && self.head != nil {
-//            let currentNode = self.head
-//            printList(currentNode!.next)
-//        } else if currentNode!.data == nil || currentNode!.data! == "" {
-//            print("List empty!")
-//        } else {
-//            printList(self.head!.next)
-//        }
-//    }
 
     func printList() {
         if self.head == nil || self.head!.data! == "" {
             print("Empty List")
         } else {
-            printHelper(self.head!)
+            recursivePrint(self.head!)
         }
     }
 
-    func printHelper(currentNode: Node) {
+    func recursivePrint(currentNode: Node) {
         print(currentNode.data!)
         if currentNode.next != nil {
-            printHelper(currentNode.next!)
+            recursivePrint(currentNode.next!)
         }
     }
     
@@ -71,32 +60,59 @@ class LinkedList {
         if self.head!.data! == data {
             return self.head!
         } else {
-            return findHelper(self.head!.next!, data: data)
+            return recursiveFind(self.head!.next!, data: data)
         }
     }
     
-    func findHelper(currentNode: Node, data: String) -> Node{
+    func recursiveFind(currentNode: Node, data: String) -> Node{
         if currentNode.data! == data {
             return currentNode
         } else {
-            return findHelper(currentNode.next!, data: data)
+            return recursiveFind(currentNode.next!, data: data)
     
+        }
+    }
+    
+    func delete(data: String) {
+        if self.head!.data! == data {
+            if self.head!.next == nil {
+                self.head = nil
+            } else {
+                self.head! = self.head!.next!
+            }
+        } else {
+            resursiveDelete(self.head!, data: data)
+        }
+    }
+    
+    func resursiveDelete(currentNode: Node, data: String) {
+        if currentNode.next!.data! == data {
+            currentNode.next = currentNode.next!.next
+        } else if currentNode.next != nil {
+            resursiveDelete(currentNode.next!, data: data)
         }
     }
 }
 
 
 var list = LinkedList()
+print("Printing empty list")
 list.printList()
 
 list.append("yoooo")
 list.append("heyy")
 list.append("lets gooo")
 list.append("alriiiight")
-
+print("\nprinting list after appending 4 nodes")
 list.printList()
+
+print("\nprinting tail node")
 print(list.tail(list.head!).data!)
 
+print("\nfinding node 'lets gooo'")
 var node = list.find("lets gooo")
 print(node.data!)
 
+print("\nprinting list after deleting 'lets gooo' node")
+list.delete("lets gooo")
+list.printList()
