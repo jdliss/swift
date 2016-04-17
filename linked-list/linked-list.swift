@@ -92,6 +92,22 @@ class LinkedList {
             resursiveDelete(currentNode.next!, data: data)
         }
     }
+    
+    func findParent(startNode: Node, findNode: Node) -> Node! {
+        if startNode === findNode {
+            return nil
+        } else {
+            return recursiveFindParent(self.head!, findNode: findNode)
+        }
+    }
+    
+    func recursiveFindParent(startNode: Node, findNode: Node) -> Node {
+        if startNode.next! === findNode {
+            return startNode
+        } else {//if startNode.next != nil {
+            return recursiveFindParent(startNode.next!, findNode: findNode)
+        }
+    }
 }
 
 
@@ -116,3 +132,19 @@ print(node.data!)
 print("\nprinting list after deleting 'lets gooo' node")
 list.delete("lets gooo")
 list.printList()
+
+print("\nfinding parent of 'yoooo'")
+let noParentNode: Node? = list.findParent(list.head!, findNode: list.find("yoooo"))
+if noParentNode != nil {
+    print(noParentNode!.data!)
+} else {
+    print("No parent")
+}
+
+print("\nfinding parent of 'heyy'")
+let parentNode: Node? = list.findParent(list.head!, findNode: list.find("heyy"))
+if parentNode != nil {
+    print(parentNode!.data!)
+} else {
+    print("No parent")
+}
