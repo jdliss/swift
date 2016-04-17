@@ -1,7 +1,7 @@
 
 class Node {
-    var data: String?
-    var next: Node?
+    var data: String!
+    var next: Node!
 
     init (data: String) {
         self.data = data
@@ -10,7 +10,7 @@ class Node {
 }
 
 class LinkedList {
-    var head : Node?
+    var head : Node!
 
     init() {
         self.head = nil
@@ -42,54 +42,55 @@ class LinkedList {
     }
 
     func printList() {
-        if self.head == nil || self.head!.data! == "" {
+        if self.head == nil || self.head.data! == "" {
             print("Empty List")
         } else {
-            recursivePrint(self.head!)
+            recursivePrint(self.head)
         }
     }
 
     func recursivePrint(currentNode: Node) {
-        print(currentNode.data!)
+        print(currentNode.data)
         if currentNode.next != nil {
-            recursivePrint(currentNode.next!)
+            recursivePrint(currentNode.next)
         }
     }
     
-    func find(data: String) -> Node {
-        if self.head!.data! == data {
+    func find(data: String) -> Node! {
+        if self.head.data == data {
             return self.head!
         } else {
-            return recursiveFind(self.head!.next!, data: data)
+            return recursiveFind(self.head.next, data: data)
         }
     }
     
-    func recursiveFind(currentNode: Node, data: String) -> Node{
-        if currentNode.data! == data {
+    func recursiveFind(currentNode: Node, data: String) -> Node! {
+        if currentNode.data == data {
             return currentNode
+        } else if currentNode.next != nil {
+            return recursiveFind(currentNode.next, data: data)
         } else {
-            return recursiveFind(currentNode.next!, data: data)
-    
+            return nil
         }
     }
     
     func delete(data: String) {
-        if self.head!.data! == data {
-            if self.head!.next == nil {
+        if self.head.data == data {
+            if self.head.next == nil {
                 self.head = nil
             } else {
-                self.head! = self.head!.next!
+                self.head = self.head.next
             }
         } else {
-            resursiveDelete(self.head!, data: data)
+            resursiveDelete(self.head, data: data)
         }
     }
     
     func resursiveDelete(currentNode: Node, data: String) {
-        if currentNode.next!.data! == data {
-            currentNode.next = currentNode.next!.next
+        if currentNode.next.data == data {
+            currentNode.next = currentNode.next.next
         } else if currentNode.next != nil {
-            resursiveDelete(currentNode.next!, data: data)
+            resursiveDelete(currentNode.next, data: data)
         }
     }
     
@@ -97,24 +98,24 @@ class LinkedList {
         if startNode === findNode {
             return nil
         } else {
-            return recursiveFindParent(self.head!, findNode: findNode)
+            return recursiveFindParent(self.head, findNode: findNode)
         }
     }
     
     func recursiveFindParent(currentNode: Node, findNode: Node) -> Node {
-        if currentNode.next! === findNode {
+        if currentNode.next === findNode {
             return currentNode
         } else {
-            return recursiveFindParent(currentNode.next!, findNode: findNode)
+            return recursiveFindParent(currentNode.next, findNode: findNode)
         }
     }
     
-    func pop() -> Node? {
+    func pop() -> Node! {
         if self.head == nil {
             return nil
         } else {
-            let tail = self.tail(self.head!)
-            self.findParent(self.head!, findNode: tail).next = nil
+            let tail = self.tail(self.head)
+            self.findParent(self.head, findNode: tail).next = nil
             return tail
         }
     }
@@ -133,20 +134,28 @@ print("\nprinting list after appending 4 nodes")
 list.printList()
 
 print("\nprinting tail node")
-print(list.tail(list.head!).data!)
+print(list.tail(list.head).data)
 
 print("\nfinding node 'lets gooo'")
-var node = list.find("lets gooo")
-print(node.data!)
+let node = list.find("lets gooo")
+print(node.data)
+
+print("\nfinding node 'sdgsdg'")
+let badNode = list.find("sdgsdg")
+if badNode == nil {
+    print("node not found (nil)")
+} else {
+    print("something went wrong")
+}
 
 print("\nprinting list after deleting 'lets gooo' node")
 list.delete("lets gooo")
 list.printList()
 
 print("\nfinding parent of 'yoooo'")
-let noParentNode: Node? = list.findParent(list.head!, findNode: list.find("yoooo"))
+let noParentNode: Node! = list.findParent(list.head, findNode: list.find("yoooo"))
 if noParentNode != nil {
-    print(noParentNode!.data!)
+    print(noParentNode.data)
 } else {
     print("No parent")
 }
