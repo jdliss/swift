@@ -119,6 +119,12 @@ class LinkedList {
             return tail
         }
     }
+    
+    func count(input: Node...) -> Int {
+        let currentNode: Node
+        input.isEmpty ? [currentNode = self.head] : [currentNode = input[0]]
+        return currentNode.next == nil ? 1 : 1 + count(currentNode.next)
+    }
 }
 
 
@@ -184,3 +190,12 @@ if emptyPop == nil {
 } else {
     print("something went wrong")
 }
+
+print("\nRepopulating list")
+list.append("dooooope")
+list.append("lets gooo")
+list.append("alriiiight")
+list.printList()
+
+print("\nPrinting count (should be 4)")
+print(list.count())
