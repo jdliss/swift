@@ -55,7 +55,7 @@ class LinkedList {
             recursivePrint(currentNode.next)
         }
     }
-    
+
     func find(data: String) -> Node! {
         if self.head.data == data {
             return self.head
@@ -63,7 +63,7 @@ class LinkedList {
             return recursiveFind(self.head.next, data: data)
         }
     }
-    
+
     func recursiveFind(currentNode: Node, data: String) -> Node! {
         if currentNode.data == data {
             return currentNode
@@ -73,7 +73,7 @@ class LinkedList {
             return nil
         }
     }
-    
+
     func delete(data: String) {
         if self.head.data == data {
             if self.head.next == nil {
@@ -85,7 +85,7 @@ class LinkedList {
             resursiveDelete(self.head, data: data)
         }
     }
-    
+
     func resursiveDelete(currentNode: Node, data: String) {
         if currentNode.next.data == data {
             currentNode.next = currentNode.next.next
@@ -93,7 +93,7 @@ class LinkedList {
             resursiveDelete(currentNode.next, data: data)
         }
     }
-    
+
     func findParent(startNode: Node, findNode: Node) -> Node! {
         if startNode === findNode {
             return nil
@@ -101,7 +101,7 @@ class LinkedList {
             return recursiveFindParent(self.head, findNode: findNode)
         }
     }
-    
+
     func recursiveFindParent(currentNode: Node, findNode: Node) -> Node {
         if currentNode.next === findNode {
             return currentNode
@@ -109,7 +109,13 @@ class LinkedList {
             return recursiveFindParent(currentNode.next, findNode: findNode)
         }
     }
-    
+
+    func count(input: Node...) -> Int {
+      let currentNode: Node
+      input.isEmpty ? [currentNode = self.head] : [currentNode = input[0]]
+      return currentNode.next == nil ? 1 : 1 + count(currentNode.next)
+    }
+
     func pop() -> Node! {
         if self.head == nil {
             return nil
@@ -119,11 +125,19 @@ class LinkedList {
             return tail
         }
     }
-    
-    func count(input: Node...) -> Int {
-        let currentNode: Node
-        input.isEmpty ? [currentNode = self.head] : [currentNode = input[0]]
-        return currentNode.next == nil ? 1 : 1 + count(currentNode.next)
+
+    func pop_front() -> Node! {
+      if self.head == nil {
+        return nil
+      } else {
+        let node = self.head
+        self.head = self.head.next
+        return node
+      }
+    }
+
+    func pop_back() -> Node! {
+      return self.pop()
     }
 }
 
@@ -190,6 +204,11 @@ if emptyPop == nil {
 } else {
     print("something went wrong")
 }
+
+print("\npopping head node")
+print(list.pop_front().data)
+print("\nprinting list")
+list.printList()
 
 print("\nRepopulating list")
 list.append("dooooope")
