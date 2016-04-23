@@ -109,6 +109,12 @@ class LinkedList {
         }
     }
 
+    func count(input: Node...) -> Int {
+      let currentNode: Node
+      input.isEmpty ? [currentNode = self.head] : [currentNode = input[0]]
+      return currentNode.next == nil ? 1 : 1 + count(currentNode.next)
+    }
+
     func pop() -> Node! {
         if self.head == nil {
             return nil
@@ -119,9 +125,17 @@ class LinkedList {
         }
     }
 
-    func count(input: Node...) -> Int {
-        let currentNode: Node
-        input.isEmpty ? [currentNode = self.head] : [currentNode = input[0]]
-        return currentNode.next == nil ? 1 : 1 + count(currentNode.next)
+    func pop_front() -> Node! {
+      if self.head == nil {
+        return nil
+      } else {
+        let node = self.head
+        self.head = self.head.next
+        return node
+      }
+    }
+
+    func pop_back() -> Node! {
+      return self.pop()
     }
 }
