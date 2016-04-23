@@ -1,4 +1,3 @@
-
 class Node {
     var data: String!
     var next: Node!
@@ -55,7 +54,7 @@ class LinkedList {
             recursivePrint(currentNode.next)
         }
     }
-    
+
     func find(data: String) -> Node! {
         if self.head.data == data {
             return self.head
@@ -63,7 +62,7 @@ class LinkedList {
             return recursiveFind(self.head.next, data: data)
         }
     }
-    
+
     func recursiveFind(currentNode: Node, data: String) -> Node! {
         if currentNode.data == data {
             return currentNode
@@ -73,7 +72,7 @@ class LinkedList {
             return nil
         }
     }
-    
+
     func delete(data: String) {
         if self.head.data == data {
             if self.head.next == nil {
@@ -85,7 +84,7 @@ class LinkedList {
             resursiveDelete(self.head, data: data)
         }
     }
-    
+
     func resursiveDelete(currentNode: Node, data: String) {
         if currentNode.next.data == data {
             currentNode.next = currentNode.next.next
@@ -93,7 +92,7 @@ class LinkedList {
             resursiveDelete(currentNode.next, data: data)
         }
     }
-    
+
     func findParent(startNode: Node, findNode: Node) -> Node! {
         if startNode === findNode {
             return nil
@@ -101,7 +100,7 @@ class LinkedList {
             return recursiveFindParent(self.head, findNode: findNode)
         }
     }
-    
+
     func recursiveFindParent(currentNode: Node, findNode: Node) -> Node {
         if currentNode.next === findNode {
             return currentNode
@@ -109,7 +108,7 @@ class LinkedList {
             return recursiveFindParent(currentNode.next, findNode: findNode)
         }
     }
-    
+
     func pop() -> Node! {
         if self.head == nil {
             return nil
@@ -119,83 +118,10 @@ class LinkedList {
             return tail
         }
     }
-    
+
     func count(input: Node...) -> Int {
         let currentNode: Node
         input.isEmpty ? [currentNode = self.head] : [currentNode = input[0]]
         return currentNode.next == nil ? 1 : 1 + count(currentNode.next)
     }
 }
-
-
-var list = LinkedList()
-print("Printing empty list")
-list.printList()
-
-list.append("yoooo")
-list.append("dooooope")
-list.append("lets gooo")
-list.append("alriiiight")
-print("\nprinting list after appending 4 nodes")
-list.printList()
-
-print("\nprinting tail node")
-print(list.tail(list.head).data)
-
-print("\nfinding node 'lets gooo'")
-let node = list.find("lets gooo")
-print(node.data)
-
-print("\nfinding node 'sdgsdg'")
-let badNode = list.find("sdgsdg")
-if badNode == nil {
-    print("node not found (nil)")
-} else {
-    print("something went wrong")
-}
-
-print("\nprinting list after deleting 'lets gooo' node")
-list.delete("lets gooo")
-list.printList()
-
-print("\nfinding parent of 'yoooo'")
-let noParentNode: Node! = list.findParent(list.head, findNode: list.find("yoooo"))
-if noParentNode != nil {
-    print(noParentNode.data)
-} else {
-    print("No parent")
-}
-
-print("\nfinding parent of 'dooooope'")
-let parentNode: Node! = list.findParent(list.head, findNode: list.find("dooooope"))
-if parentNode != nil {
-    print(parentNode.data)
-} else {
-    print("No parent")
-}
-
-print("\nprinting popped node (should be 'alriiiight')")
-print(list.pop().data)
-
-print("\nprinting popped node (should be 'dooooope')")
-print(list.pop().data)
-
-var newList = LinkedList()
-
-print("\nattempting to pop from empty list")
-let emptyPop = newList.pop()
-
-if emptyPop == nil {
-    print("Nothing popped")
-} else {
-    print("something went wrong")
-}
-
-print("\nRepopulating list")
-list.append("dooooope")
-list.append("lets gooo")
-list.append("alriiiight")
-list.printList()
-
-print("\nPrinting count (should be 4)")
-print(list.count())
