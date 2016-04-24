@@ -17,7 +17,9 @@ class Node {
 class BST {
     var root: Node!
     
-    init() {}
+    init() {
+        self.root = nil
+    }
     
     init(_ node: Node) {
         self.root = node
@@ -46,6 +48,34 @@ class BST {
             currentNode.lchild == nil ? currentNode.lchild = Node(name, score) : insertChild(name, score, currentNode.lchild)
         }
     }
+    
+    func includes(name: String, _ score: Int) -> Bool {
+        if self.root == nil {
+            return false
+        } else {
+            if self.root.name == name && self.root.score == score {
+                return true
+            } else {
+                if score > self.root.score {
+                    return self.root.rchild == nil ? false : recurseIncludes(name, score, self.root.rchild)
+                } else {
+                    return self.root.lchild == nil ? false : recurseIncludes(name, score, self.root.lchild)
+                }
+            }
+        }
+    }
+    
+    func recurseIncludes(name: String, _ score: Int, _ currentNode: Node) -> Bool {
+        if currentNode.name == name && currentNode.score == score {
+            return true
+        } else {
+            if score > currentNode.score {
+                return currentNode.rchild == nil ? false : recurseIncludes(name, score, currentNode.rchild)
+            } else {
+                return currentNode.lchild == nil ? false : recurseIncludes(name, score, currentNode.lchild)
+            }
+        }
+    }
 }
 
 
@@ -56,3 +86,15 @@ bst.insert("1st lchild", 40)
 print(bst.root.lchild.name)
 bst.insert("1st rchild", 60)
 print(bst.root.rchild.name)
+if bst.includes("root node", 50) {
+    print("root node, 50 exists")
+} else {
+    print("it does not exist")
+}
+
+if bst.includes("lsdkjs", 403) {
+    print("includes doesn't work")
+} else {
+    print("doesn't exists")
+}
+
