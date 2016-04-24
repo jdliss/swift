@@ -176,17 +176,3 @@ class BST {
         }
     }
 }
-
-let bst = BST("root node", 50)
-bst.insert("node 1", 60)
-bst.insert("node 2", 40)
-bst.insert("node 3", 35)
-bst.insert("node 4", 44)
-bst.insert("node 5", 55)
-bst.insert("node 6", 100)
-bst.insert("node 7", 37)
-bst.insert("node 8", 41)
-bst.insert("node 9", 70)
-bst.insert("node 10", 80)
-
-print(bst.leaves())
