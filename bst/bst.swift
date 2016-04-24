@@ -12,6 +12,11 @@ class Node {
         self.lchild = nil
         self.rchild = nil
     }
+
+    func isLeaf() -> Bool {
+        return self.rchild == nil && self.lchild == nil ? true : false
+    }
+
 }
 
 class BST {
@@ -136,4 +141,52 @@ class BST {
             }
         }
     }
+
+    func leaves() -> Int! {
+        if self.root == nil {
+            return nil
+        } else {
+            if self.root.isLeaf() {
+                return 1
+            } else {
+                var leaves = 0
+                if self.root.rchild != nil {
+                    leaves += recurseLeaves(self.root.rchild)
+                }
+                if self.root.lchild != nil {
+                    leaves += recurseLeaves(self.root.lchild)
+                }
+                return leaves
+            }
+        }
+    }
+
+    func recurseLeaves(currentNode: Node) -> Int {
+        if currentNode.isLeaf() {
+            return 1
+        } else {
+          var temp = 0
+            if currentNode.rchild != nil {
+                temp += recurseLeaves(currentNode.rchild)
+            }
+            if currentNode.lchild != nil {
+                temp += recurseLeaves(currentNode.lchild)
+            }
+          return temp
+        }
+    }
 }
+
+let bst = BST("root node", 50)
+bst.insert("node 1", 60)
+bst.insert("node 2", 40)
+bst.insert("node 3", 35)
+bst.insert("node 4", 44)
+bst.insert("node 5", 55)
+bst.insert("node 6", 100)
+bst.insert("node 7", 37)
+bst.insert("node 8", 41)
+bst.insert("node 9", 70)
+bst.insert("node 10", 80)
+
+print(bst.leaves())
