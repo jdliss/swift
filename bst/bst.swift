@@ -110,9 +110,13 @@ class BST {
         }
     }
 
+    func nodeDepth(node: Node) -> Int! {
+        return depth(node.name, node.score)
+    }
+
     func depth(name: String, _ score: Int) -> Int! {
         if self.root == nil {
-            return 0
+            return nil
         } else {
             if self.root.name == name && self.root.score == score {
                 return 0
@@ -142,6 +146,24 @@ class BST {
         }
     }
 
+    func height() -> Int! {
+        if self.root == nil {
+             return nil
+        } else {
+            if self.root.isLeaf() {
+                return nodeDepth(self.root)
+            } else {
+                return recurseHeight(self.root)
+            }
+        }
+    }
+
+    func recurseHeight(currentNode: Node) -> Int {
+        let right = currentNode.rchild == nil ? nodeDepth(currentNode) : recurseHeight(currentNode.rchild)
+        let left = currentNode.lchild == nil ? nodeDepth(currentNode) : recurseHeight(currentNode.lchild)
+        return right > left ? right : left
+    }
+
     func leaves() -> Int! {
         if self.root == nil {
             return nil
@@ -165,7 +187,7 @@ class BST {
         if currentNode.isLeaf() {
             return 1
         } else {
-          var temp = 0
+            var temp = 0
             if currentNode.rchild != nil {
                 temp += recurseLeaves(currentNode.rchild)
             }
@@ -175,4 +197,38 @@ class BST {
           return temp
         }
     }
+
+    func max() -> Node! {
+        if self.root == nil {
+            return nil
+        } else {
+            if self.root.isLeaf() {
+                return self.root
+            } else {
+                return self.root.rchild == nil ? self.root : recurseMax(self.root.rchild)
+            }
+        }
+    }
+
+    func recurseMax(currentNode: Node) -> Node {
+        return currentNode.rchild == nil ? currentNode : recurseMax(currentNode.rchild)
+    }
+
+
+    func min() -> Node! {
+        if self.root == nil {
+            return nil
+        } else {
+            if self.root.isLeaf() {
+                return self.root
+            } else {
+                return self.root.lchild == nil ? self.root : recurseMin(self.root.lchild)
+            }
+        }
+    }
+
+    func recurseMin(currentNode: Node) -> Node {
+        return currentNode.lchild == nil ? currentNode : recurseMin(currentNode.lchild)
+    }
 }
+
